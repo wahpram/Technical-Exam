@@ -1,6 +1,6 @@
 # Customer Message Classification (Biznet)
 
-Ringkasan singkat proyek klasifikasi pesan customer Biznet ke kategori:
+Klasifikasi Pesan Customer Biznet:
 
 - `Information` — pertanyaan/info layanan  
 - `Problem` — keluhan/masalah teknis  
@@ -50,7 +50,7 @@ Quickstart
 4. Predict / Inference
    - Single prediction:
      ```
-     python [main.py](http://_vscodecontentref_/3) --mode predict --text "Internet saya down, tolong cek"
+     python [main.py](http://_vscodecontentref_/3) --mode predict --text "Internet saya down, tolong bantu cek"
      ```
    - Batch prediction:
      ```
@@ -66,8 +66,8 @@ Quickstart
    - Evaluasi menggunakan split & metrik di [`src.modeling.evaluate_model`](src/modeling.py)
 
 Data notes
-- Dataset contoh:
-  - [data/raw/question_list_labeled.csv](data/raw/question_list_labeled.csv)
+- Dataset:
+  - [data/clean/question_list_labeled.csv](data/raw/question_list_labeled.csv)
   - [data/clean/question_list_modeling.csv](data/clean/question_list_modeling.csv)
 - Notebooks untuk eksplorasi & preprocessing:
   - [notebooks/01_data_exploration_and_preprocessing.ipynb](notebooks/01_data_exploration_and_preprocessing.ipynb)  

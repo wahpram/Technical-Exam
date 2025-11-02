@@ -15,9 +15,6 @@ venv/
 
 # Data, models, outputs (lokal, besar)
 data/raw/
-data/clean/
-models/
-results/
 
 # Notebooks checkpoints
 notebooks/.ipynb_checkpoints
