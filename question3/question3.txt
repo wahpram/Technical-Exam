@@ -1,0 +1,87 @@
+QUESTION 3
+
+1. Usulan Solusi
+Berdasarkan konteks tersebut, terdapat usulan AI/ML Model yang dapat saya usulkan untuk mencegah perilaku tersebut yakni dengan membuat sistem fraud detection yang menggabungkan analsis dokumen (OCR dan NLP), dan anomaly detection. Berikut merupakan lebih detailnya.
+    A. Pembacaan dan Validasi Dokumen (OCR Module)
+    - Upload dokumen (nota/invoice) dalam format image/PDF
+    - OCR extraction menggunakan Tesseract/EasyOCR
+    - Ekstraksi Informasi:
+        - Tanggal transaksi
+        - Nominal
+        - Nama merchant
+        - Alamat/lokasi
+    - Validasi dengan database transaksi
+
+    B. Deteksi Pola Kecurangan 
+    
+    Model 1: Anomaly Detection (Isolation Forest)
+    - Deteksi transaksi yang menyimpang dari pola normal
+    - Features: nominal, frekuensi, merchant, waktu, lokasi
+    - Output: anomaly score (0-1)
+    
+    Model 2: Fraud Classification (Random Forest / XGBoost)
+    - Klasifikasi: Normal / Suspicious / Fraud
+    - Features: hasil OCR + fitur transaksi + riwayat karyawan
+    - Output: probabilitas fraud + tingkat kepercayaan
+
+    C. Peraturan Validasi
+    - Validasi kebijakan perusahaan:
+        - Mkasimal jumlah per kategori
+        - Merchant yang diizinkan
+        - Waktu dan tempat
+        - Syarat approval
+    - Auto-reject jika melanggar hard rules
+
+
+2. Data yang Diperlukan
+Berdasarkan usulan solusi yang saya berikan terdapat beberapa data yang diperlukan untuk penerapan AI/ML Model ini. Diantaranya adalah.
+    - Untuk penerapan, kemungkinan memerlukan kurang lebih 10.000 data transaksi historis dengan label
+    - Minimal 100-200 kasus fraud teridentifikasi
+    - Gambar nota kurang lebih 1,000 untuk training OCR
+
+
+3. Cara Kerja Sistem
+Cara kerja sistem yang saya usulkan untuk solusi ini, sebagai berikut.
+Karyawan Upload → Ekstraksi OCR → Feature Engineering → Scoring ML → Keputusan → Skor Resiko(Auto Approve/Auto Reject + Alert/Review Manual)
+
+Langkah detail cara kerja sistem:
+    1. Karyawan upload dokumen via aplikasi web/mobile
+    2. OCR engine ekstrak informasi dari dokumen
+    3. Sistem validasi data hasil ekstraksi vs database
+    4. Feature engineering untuk input ML
+    5. Anomaly detection memberikan skor anomali
+    6. Model klasifikasi memberikan probabilitas fraud
+    7. Engine berbasis aturan cek pelanggaran kebijakan
+    8. Agregasi skor menjadi skor risiko final
+    9. Decision engine tentukan approve/review/reject
+    10. Notifikasi ke karyawan & approver
+
+4. Infrastruktur
+Berdasarkan data dan cara kerja sistem yang saya usulkan, berikut merupakan infrastruktur minimnal yang digunakan untuk menerapkan solusi ini.
+    - Server aplikasi
+    - Server model ML
+    - Server database
+    - Object Storage
+
+Berikut merupakan software stack yang digunakan untuk menerapkan solusi ini.
+Backend:
+* Python 3.9+
+* FastAPI
+* Redis (queue & cache)
+
+ML/AI:
+* scikit-learn (anomaly detection, classification)
+* XGBoost/SVM (model klasifikasi)
+* Tesseract OCR / EasyOCR
+* OpenCV (preprocessing gambar)
+* pandas, numpy (data processing)
+
+Database:
+* PostgreSQL (data transaksional)
+* Redis (caching)
+
+Frontend:
+* Flask web interface/Vue.js
+* Komponen upload file
+* Dashboard untuk monitoring
+
