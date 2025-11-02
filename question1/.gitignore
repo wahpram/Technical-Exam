@@ -1,0 +1,26 @@
+# Python cache / bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual envs
+.venv/
+venv/
+
+# Environment vars / secrets
+.env
+
+# IDE
+.vscode/
+
+# Data, models, outputs (lokal, besar)
+data/raw/
+data/clean/
+models/
+results/
+
+# Notebooks checkpoints
+notebooks/.ipynb_checkpoints
+
+# Serialized artifacts
+*.pkl
+*.joblib
