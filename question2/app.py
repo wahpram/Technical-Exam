@@ -14,6 +14,12 @@ if "messages" not in st.session_state:
 
 # Function cek koneksi model Ollama
 def check_ollama_connection():
+    """
+    Fungsi untuk mengecek koneksi model Ollama
+
+    Returns:
+        boolena: Status koneksi ke Ollama
+    """
     try:
         ollama.list()
         return True, "Ollama service running"
@@ -22,7 +28,18 @@ def check_ollama_connection():
 
 
 # Function untuk mendapatkan response dari model
-def get_ollama_response(prompt, model="gemma3:1b", temperature=0.7, max_tokens=500):
+def get_ollama_response(prompt):
+    """
+    Fungsi ini digunakan untuk mengirim prompt dan mendapatkan response dari model
+
+    Args:
+        prompt (str): Prompt dari user
+
+    Returns:
+        str: Response dari model
+    """
+    
+    model="gemma3:1b"
     try:
         # Options dari model Ollama
         response = ollama.chat(
@@ -30,10 +47,6 @@ def get_ollama_response(prompt, model="gemma3:1b", temperature=0.7, max_tokens=5
             messages=[
                 {"role": "user", "content": prompt}
             ],
-            options={
-                "temperature": temperature,
-                "num_predict": max_tokens,
-            }
         )
         return response['message']['content'], None
     except Exception as e:
@@ -52,11 +65,6 @@ for message in st.session_state.messages:
 
 # Input chat dari user
 if prompt := st.chat_input("Ketik pertanyaan Anda di sini..."):
-    # Ambil settings dari sidebar
-    temperature = st.session_state.get('temperature', 0.7)
-    max_tokens = st.session_state.get('max_tokens', 500)
-    selected_model = st.session_state.get('selected_model', 'gemma3:1b')
-    
     # Tambahkan pesan user ke history
     timestamp = datetime.now().strftime("%H:%M:%S")
     st.session_state.messages.append({
@@ -74,10 +82,7 @@ if prompt := st.chat_input("Ketik pertanyaan Anda di sini..."):
     with st.chat_message("assistant"):
         with st.spinner("Mohon menunggu, Ollama sedang berpikir..."):
             response, error = get_ollama_response(
-                prompt, 
-                model=selected_model,
-                temperature=temperature,
-                max_tokens=max_tokens
+                prompt,
             )
             
             if error:
@@ -96,41 +101,8 @@ if prompt := st.chat_input("Ketik pertanyaan Anda di sini..."):
                     "timestamp": response_timestamp
                 })
 
-# Sidebar dan konfigurasi model
+# Sidebar
 with st.sidebar:
-    # Model Settings
-    st.header("Model Settings")
-    
-    # Temperature slider
-    st.session_state.temperature = st.slider(
-        "Temperature",
-        min_value=0.0,
-        max_value=2.0,
-        value=0.7,
-        step=0.1,
-        help="Controls randomness. Lower = more focused, Higher = more creative"
-    )
-    
-    # Max tokens
-    st.session_state.max_tokens = st.number_input(
-        "Max Tokens",
-        min_value=100,
-        max_value=2000,
-        value=500,
-        step=100,
-        help="Maximum length of response"
-    )
-    
-    
-    st.markdown("---")
-    
-    # Button untuk clear chat history
-    if st.button("Clear Chat History", use_container_width=True):
-        st.session_state.messages = []
-        st.rerun()
-        
-    st.markdown("---")
-    
     # Mengecek status koneksi ollama
     st.markdown("### Status Ollama:")
     is_conn, msg = check_ollama_connection()
@@ -145,3 +117,12 @@ with st.sidebar:
         4. Jalankan kembali aplikasi
         """)
         st.stop()
+    
+    st.markdown("---")
+    
+    # Button untuk clear chat history
+    if st.button("Clear Chat History", use_container_width=True):
+        st.session_state.messages = []
+        st.rerun()
+        
+    

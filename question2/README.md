@@ -1,126 +1,94 @@
-========================================
+# Question 2
+
 OLLAMA CHAT INTERFACE - AI MODEL INTEGRATION
-========================================
 
-DESKRIPSI PROJECT
------------------
-Project ini adalah implementasi chat interface menggunakan AI model Gemma2:2b dari Ollama.
-Aplikasi ini memungkinkan user untuk berinteraksi dengan AI model melalui antarmuka chat
-yang sederhana dan intuitif menggunakan Streamlit sebagai framework UI.
+Repository sturcture:
+-----------------------------
+* app.py — aplikasi chat interface Streamlit
+* requirements.txt — daftar dependencies Python
+* README.txt — dokumentasi project (file ini)
 
-METODE YANG DIGUNAKAN
-----------------------
-1. Ollama API: Untuk komunikasi dengan AI model Gemma2:2b
-2. Streamlit: Untuk membangun user interface yang interaktif
-3. Session State: Untuk menyimpan history percakapan
-4. Chat Interface Pattern: Untuk memberikan pengalaman chat yang natural
+Quickstart
+----------
 
-FLOW CODE
----------
-1. User membuka aplikasi melalui browser
-2. Streamlit menginisialisasi session state untuk menyimpan history chat
-3. User memasukkan pertanyaan melalui chat input
-4. Aplikasi mengirim query ke Ollama API dengan model gemma2:2b
-5. Ollama memproses query dan mengembalikan respons
-6. Respons ditampilkan di interface chat
-7. History chat disimpan di session state untuk referensi
-8. User dapat melanjutkan percakapan atau clear history
+1. Siapkan Environment
+   * Python 3.8+ rekomendasi
+   * Install Ollama dari https://ollama.com
+   * Install dependency:
+```
+pip install -r requirements.txt
+```
 
-ARSITEKTUR SISTEM
------------------
-┌─────────────┐      ┌──────────────┐      ┌─────────────┐
-│  Streamlit  │ ───> │  Ollama API  │ ───> │  Gemma2:2b  │
-│     UI      │      │   (Python)   │      │    Model    │
-└─────────────┘      └──────────────┘      └─────────────┘
-      ↑                                           │
-      └───────────── Response ────────────────────┘
+2. Download Model
+   * Pull model Gemma3:1b:
+```
+ollama pull gemma3:1b
+```
 
-LANGKAH INSTALASI
------------------
-1. Install Ollama:
-   - Download dari https://ollama.com
-   - Install sesuai OS yang digunakan
-   - Jalankan Ollama service
+   * Verifikasi model tersedia:
+```
+ollama list
+```
 
-2. Download AI Model:
-   ollama pull gemma2:2b
+3. Jalankan Aplikasi
+   * Start aplikasi:
+```
+streamlit run app.py
+```
 
-3. Setup Python Environment:
-   python -m venv venv
-   
-4. Aktivasi Virtual Environment:
-   - Windows: venv\Scripts\activate
-   - Linux/Mac: source venv/bin/activate
+   * Akses di browser: http://localhost:8501
 
-5. Install Dependencies:
-   pip install -r requirements.txt
+Penggunaan:
 
-LANGKAH TESTING
----------------
-1. Pastikan Ollama service sudah running:
-   - Windows: Check di system tray
-   - Linux/Mac: ps aux | grep ollama
+* Chat Interface:
+  - Ketik prompt di input box
+  - Tekan Enter untuk mengirim
+  - AI akan merespons dalam beberapa detik
 
-2. Verifikasi model sudah terdownload:
-   ollama list
+* Clear History:
+  - Klik tombol "Clear Chat History" di sidebar untuk menghapus history chat
 
-3. Jalankan aplikasi:
-   streamlit run app.py
+* Status Monitoring:
+  - Cek status koneksi Ollama di sidebar
+  - Status "Connected" menunjukkan Ollama siap digunakan
 
-4. Buka browser pada URL yang ditampilkan (biasanya http://localhost:8501)
 
-5. Test dengan beberapa pertanyaan:
-   - "Apa itu artificial intelligence?"
-   - "Jelaskan tentang machine learning"
-   - "Berikan contoh penggunaan AI dalam kehidupan sehari-hari"
+Fungsi Utama
 
-6. Verifikasi fitur-fitur:
-   - Input dan output chat berfungsi
-   - History chat tersimpan
-   - Tombol clear history berfungsi
-   - Status Ollama connection di sidebar
+* `check_ollama_connection()` — app.py
+  Mengecek koneksi ke Ollama service dan mengembalikan status koneksi
 
-TROUBLESHOOTING
-----------------
-1. Error "Ollama not running":
-   - Pastikan Ollama service sudah dijalankan
-   - Restart Ollama service
+* `get_ollama_response(prompt)` — app.py
+  Mengirim prompt ke model Gemma3:1b dan menerima respons dari AI
 
-2. Error "Model not found":
-   - Jalankan: ollama pull gemma2:2b
-   - Tunggu hingga download selesai
+* Streamlit session_state — menyimpan history percakapan selama session aktif
 
-3. Error saat pip install:
-   - Update pip: python -m pip install --upgrade pip
-   - Install ulang dependencies
+Flow Aplikasi
 
-4. Port 8501 sudah digunakan:
-   - Jalankan dengan: streamlit run app.py --server.port 8502
+1. Aplikasi mengecek koneksi ke Ollama service
+2. User memasukkan prompt melalui chat input
+3. Query dikirim ke Ollama API dengan model gemma3:1b
+4. Model memproses dan generate respons
+5. Respons ditampilkan di chat interface dengan timestamp
+6. History chat disimpan di session state
+7. User dapat melanjutkan percakapan atau clear history
 
-TEKNOLOGI YANG DIGUNAKAN
--------------------------
-- Python 3.8+
-- Ollama (AI Model Runtime)
-- Streamlit (Web Framework)
-- Gemma2:2b (AI Model)
+Tips
 
-FITUR APLIKASI
---------------
-✓ Chat interface yang responsif
-✓ Real-time response dari AI
-✓ History percakapan
-✓ Clear chat functionality
-✓ Status monitoring Ollama
-✓ Timestamp untuk setiap pesan
-✓ Loading indicator saat AI berpikir
+* Pastikan status Ollama "Connected" sebelum memulai chat
+* Clear history secara berkala jika percakapan sudah sangat panjang
+* Test dengan berbagai jenis pertanyaan untuk evaluasi model
+* Periksa console/terminal untuk log error jika ada masalah
 
-AUTHOR
-------
-[Nama Anda]
-Technical Test - AI IT Roles
+Referensi Cepat File/Symbol
 
-TANGGAL
--------
-[Tanggal Pengerjaan]
+* app.py — aplikasi utama
+* requirements.txt
+  - ollama==0.3.3
+  - streamlit==1.39.0
+  - requests==2.32.3
+* `check_ollama_connection()` — app.py
+* `get_ollama_response(prompt)` — app.py
+* Streamlit session_state — penyimpanan history chat
 
 ========================================
