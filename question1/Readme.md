@@ -6,7 +6,7 @@ Klasifikasi Pesan Customer Biznet:
 - `Problem` — keluhan/masalah teknis  
 - `Request` — permintaan layanan
 
-Repository structure (utama):
+Repository structure:
 
 - [main.py](main.py) — CLI untuk preprocess, train, predict, batch, evaluate  
 - [config.py](config.py) — konfigurasi (path & hyperparameter), contoh: [`config.RAW_DATA`](config.py), [`config.PROCESSED_DATA`](config.py), [`config.CATEGORIES`](config.py)  
