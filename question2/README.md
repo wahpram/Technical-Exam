@@ -79,16 +79,3 @@ Tips
 * Clear history secara berkala jika percakapan sudah sangat panjang
 * Test dengan berbagai jenis pertanyaan untuk evaluasi model
 * Periksa console/terminal untuk log error jika ada masalah
-
-Referensi Cepat File/Symbol
-
-* app.py — aplikasi utama
-* requirements.txt
-  - ollama==0.3.3
-  - streamlit==1.39.0
-  - requests==2.32.3
-* `check_ollama_connection()` — app.py
-* `get_ollama_response(prompt)` — app.py
-* Streamlit session_state — penyimpanan history chat
-
-========================================
