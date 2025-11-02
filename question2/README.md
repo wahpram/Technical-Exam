@@ -12,7 +12,7 @@ Quickstart
 ----------
 
 1. Siapkan Environment
-   * Python 3.8+ rekomendasi
+   * Python 3.11 rekomendasi
    * Install Ollama dari https://ollama.com
    * Install dependency:
 ```
