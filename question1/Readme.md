@@ -11,14 +11,14 @@ Repository structure (utama):
 - [main.py](main.py) — CLI untuk preprocess, train, predict, batch, evaluate  
 - [config.py](config.py) — konfigurasi (path & hyperparameter), contoh: [`config.RAW_DATA`](config.py), [`config.PROCESSED_DATA`](config.py), [`config.CATEGORIES`](config.py)  
 - data/
-  - [data/raw](data/raw) — dataset mentah (e.g. `question_list.csv`, `question_list_labeled.csv`)  
+  - [data/raw](data/raw) — dataset raw (e.g. `question_list.csv`, `question_list_labeled.csv`)  
   - [data/clean](data/clean) — dataset hasil preprocessing (e.g. `question_list_modeling.csv`)  
 - src/ — modul inti
   - [`src.preprocessing.preprocess_text`](src/preprocessing.py) — pipeline pembersihan teks  
   - [`src.modeling.prepare_data`](src/modeling.py), [`src.modeling.train_pipeline`](src/modeling.py) — split, vektorisasi, training dan evaluasi  
   - [`src.prediction.MessageClassifier`](src/prediction.py), [`src.prediction.predict_category`](src/prediction.py) — inference single & batch  
 - notebooks/ — notebook eksplorasi & modeling  
-- models/ — model dan artefak serialisasi (.pkl)  
+- models/ — model, tokenizer, dan encoder (.pkl)  
 - results/ — output evaluasi  
 - [requirements.txt](requirements.txt)
 
@@ -44,7 +44,7 @@ Quickstart
      ```
      python [main.py](http://_vscodecontentref_/2) --mode train
      ```
-   - Core functions: [`src.modeling.prepare_data`](src/modeling.py), [`src.modeling.train_pipeline`](src/modeling.py)  
+   - Fungsi utama: [`src.modeling.prepare_data`](src/modeling.py), [`src.modeling.train_pipeline`](src/modeling.py)  
    - Model tersimpan di `models/` sesuai `[config.SVM_MODEL_FILE](config.py)`, vektorizer di `[config.VECTORIZER_FILE](config.py)`
 
 4. Predict / Inference
